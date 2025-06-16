@@ -1,0 +1,1 @@
+pip install customtkinter gspread pyautogui pyperclip google-auth

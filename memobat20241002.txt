@@ -1,0 +1,100 @@
+「ckmkdr1001.bat」
+
+@echo off
+chcp 65001 >nul
+
+:: ディレクトリの存在をチェック
+if exist C:\pysample_01 (
+    echo C:\pysample_01 は既に存在します。
+) else (
+    echo C:\pysample_01 は存在しません。作成します。
+    mkdir C:\pysample_01
+)
+
+pause
+
+
+「Create Folder01.bat」
+
+@echo off
+chcp 65001
+echo 現在のドライブ： %~d0
+xcopy %~d0\source\*.* C:\pysample_01 /s /e /y
+echo コピーが完了しました。
+pause
+
+
+「cnaiyo_01.bat」
+
+@echo off
+cd c:\pysample_01
+python cnaiyou.py
+pause
+
+
+「cnaiyou.py」
+
+import os
+
+# Cドライブの内容を調べる
+def list_c_drive_contents():
+    c_drive_path = 'C:\\'
+    try:
+        # Cドライブの内容を取得
+        contents = os.listdir(c_drive_path)
+        print("Cドライブの内容:")
+        for item in contents:
+            print(item)
+    except Exception as e:
+        print(f"エラーが発生しました: {e}")
+
+# 関数を実行
+list_c_drive_contents()
+
+
+「delete_py01.bat」
+#"C:\pysample_01"の内容を削除する。
+
+@echo off
+rd /s /q "C:\pysample_01"
+
+
+「cleartxt_deljson.bat」
+フォルダ内のすべてのテキストファイルの中身を削除とJSONファイルの
+削除
+
+@echo off
+rem フォルダ内のすべてのテキストファイルの中身を削除する
+for %%f in (C:\pysample_01\*.txt) do (
+    echo. > "%%f"
+)
+
+rem 特定のJSONファイル(samplep20240906-5ae36c9a4acd.json)を削除
+del /q "C:\pysample_01\samplep20240906-5ae36c9a4acd.json"
+
+
+「nomemocleartxt_deljson.bat」
+#memo20241002.txtのクリアは除外する。
+
+@echo off
+rem フォルダ内のすべてのテキストファイルの中身を削除するが、memo20241002.txtは除外
+for %%f in (C:\pysample_01\*.txt) do (
+    if not "%%~nxf" == "memo20241002.txt" (
+        echo. > "%%f"
+    )
+)
+
+「
+rem 特定のJSONファイル(samplep20240906-5ae36c9a4acd.json)を削除
+del /q "C:\pysample_01\samplep20240906-5ae36c9a4acd.json"
+
+
+「deleteall_py01.bat」
+"C:\pysample_01"をフォルダごと削除する。
+
+@echo off
+rem フォルダ内の全ファイルを削除
+del /f /s /q "C:\pysample_01\*.*"
+
+rem 空になったフォルダを削除
+rmdir /s /q "C:\pysample_01"
